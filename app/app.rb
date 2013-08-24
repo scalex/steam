@@ -1,7 +1,7 @@
 module Steam
   class App < Sinatra::Base
     get '/' do
-      'Hello World!'
+      slim :index
     end
   end
 end
