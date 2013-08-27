@@ -1,17 +1,11 @@
-doctype html
-html
-  head
-    title S.T.E.A.M.
-    meta name="keywords" content="hi"
-    / link rel="icon" type="image/png" href=file_path("favicon.png")
-    link rel="stylesheet" href="/css/base.css" type="text/css" media="screen, projection"
-    / javascript:
-    /   alert('Slim supports embedded javascript!')
-
-  body
-    h1 Markup examples
-
-    #content
-      p This example shows you how a basic Slim file looks like.
-
-    / == yield
+- Specimen.all.each do |spec|
+  .col-9.col-sm-9.col-lg-7
+    .row
+      .col-4.col-sm-4.col-lg-4
+        .img-thumbnail
+          i.foto-placeholder.icon-user.icon-4x
+        p
+          a.btn.btn-default href="#" View details »
+      .col-8.col-sm-8.col-lg-8
+        h2.media-heading= spec.nick
+        p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
