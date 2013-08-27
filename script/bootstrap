@@ -16,6 +16,8 @@ else
   echo "  + Bundler found."
 fi
 
+# createdb --owner=nilcolor -E UTF8 -l en_US.UTF-8 -T template0 steam_dev
+# CREATE EXTENSION hstore;
 #
 # Install gems
 #
