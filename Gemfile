@@ -6,6 +6,7 @@ gem 'thin', '~> 1.5.1'
 gem 'slim', '~> 2.0.1'
 gem 'sprockets', '~> 2.10.0'
 gem 'sass', '~> 3.2.10'
+gem 'coffee-script'
 gem 'sequel', '~> 4.1.1'
 gem 'pg', '~> 0.16.0'
 

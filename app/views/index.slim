@@ -1,11 +1,41 @@
-- Specimen.all.each do |spec|
-  .col-9.col-sm-9.col-lg-7
-    .row
-      .col-4.col-sm-4.col-lg-4
-        .img-thumbnail
-          i.foto-placeholder.icon-user.icon-4x
-        p
-          a.btn.btn-default href="#" View details »
-      .col-8.col-sm-8.col-lg-8
-        h2.media-heading= spec.nick
-        p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+.row
+  - Specimen.all.each do |spec|
+    .col-9.col-sm-9.col-lg-6
+      .row
+        .col-4.col-sm-4.col-lg-4
+          .img-thumbnail
+            i.foto-placeholder.icon-user.icon-4x
+          p
+            .btn-group
+              button.btn.btn-default type="button" Actions »
+              button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
+                span.caret
+              ul.dropdown-menu role="menu"
+                li
+                  a href="/specimens/#{spec.nick}/edit"
+                    i.icon-edit-sign.icon-large
+                    |  Подправить
+                li
+                  a href="mailto:"
+                    i.icon-envelope.icon-large
+                    |  WTF
+        .col-8.col-sm-8.col-lg-8
+          h2.media-heading= spec.nick
+          p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+          p.gimmicks-list
+
+            form action="/specimen/#{spec.nick}/gimmick" method="post"
+              - spec.gimmicks && spec.gimmicks.keys.each do |g|
+                span.label.label-info = g
+                | &nbsp;
+              a.btn.btn-default.btn-xs href="#" rel="push-gimmick"
+                i.icon-terminal
+              | &nbsp;
+
+hr
+
+a.btn.btn-default href="/specimens/new" Зарегать особь...
+
+
+
+
