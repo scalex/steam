@@ -1,0 +1,67 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Scalex.Team
+    meta name="keywords" content="scalex steam crm team service spareparts"
+    / link rel="icon" type="image/png" href=file_path("favicon.png")
+    link rel="stylesheet" href="/css/bootstrap.css" type="text/css"
+    link rel="stylesheet" href="/css/font-awesome.css" type="text/css"
+    link rel="stylesheet" href="/css/app.css" type="text/css"
+
+  body
+    #wrap
+      .navbar.navbar-fixed-top.navbar-inverse role="navigation"
+        .container
+          .navbar-header
+            button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-collapse"
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand href="#" S.T.E.A.M.
+          .collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li.active
+                a href="#" Home
+              li
+                a href="#about" About
+              li
+                a href="#contact" Contact
+
+      .container#container
+        .row.row-offcanvas.row-offcanvas-right
+          .col-xs-12.col-sm-9.col-lg-12
+            p.pull-right.visible-xs
+              button.btn.btn-primary.btn-xs type="button" data-toggle="offcanvas" Toggle nav
+            .jumbotron
+              h1 Hello, Specimen!
+              p Lorem ipsum dolor sit amet.
+
+            == yield
+
+          / #sidebar.col-xs-6.col-sm-3.sidebar-offcanvas role="navigation"
+          /   .well.sidebar-nav
+          /     ul.nav
+          /       li Sidebar
+          /       li.active
+          /         a href="#" Link
+          /       li
+          /         a href="#" Link
+          /       li
+          /         a href="#" Link
+          /       li Sidebar
+          /       li
+          /         a href="#" Link
+          /       li
+          /         a href="#" Link
+          /       li
+          /         a href="#" Link
+
+    footer
+      .container
+        p.text-muted.credit © Scalex LLC 2013
+
+    script src="/js/jquery.min.js" type="text/javascript"
+    script src="/js/bootstrap.js" type="text/javascript"
+    script src="/js/dropzone.js" type="text/javascript"
+    script src="/js/app.js" type="text/javascript"
