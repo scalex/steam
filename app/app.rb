@@ -23,5 +23,13 @@ module Steam
       end
       redirect '/'
     end
+
+    post '/specimen/:nick/foto' do
+      content_type :json
+      File.open("#{params[:file][:filename]}", 'w') do |f|
+        f.write params[:file][:tempfile].read
+      end
+      { foo: 'bar' }.to_json
+    end
   end
 end
