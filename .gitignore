@@ -17,3 +17,5 @@ vendor/gems
 .yardoc
 _yardoc
 doc/
+
+.env
