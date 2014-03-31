@@ -1,14 +1,22 @@
 .row
-  form action="/specimens" method="post"
-
+  - if specimen.nick.nil?
+    - url = "/specimens"
+  - else
+    - url = "/specimens/#{specimen.nick}"
+  form action="#{url}" method="post"
     .col-9.col-sm-9.col-lg-7
       .row
         .col-4.col-sm-4.col-lg-4
           .img-thumbnail
             i.foto-placeholder.icon-user.icon-4x
         .col-8.col-sm-8.col-lg-8
-          input.form-control type="text" name="nickname" placeholder="Specimen nick"
-          p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+          p
+            input.form-control type="text" name="nickname" placeholder="Nick" value="#{specimen.nick}"
+          p
+            input.form-control type="text" name="firstname" placeholder="First Name" value="#{specimen.firstname}"
+          p
+            input.form-control type="text" name="lastname" placeholder="Last Name" value="#{specimen.lastname}"
+          p Lorem ipsum...
 
       .panel.panel-primary
         .panel-body

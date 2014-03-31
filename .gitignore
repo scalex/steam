@@ -21,3 +21,4 @@ doc/
 app/public
 steam.sublime-*
 .ruby-*
+.sass-cache
