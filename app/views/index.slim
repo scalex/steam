@@ -4,8 +4,8 @@
       .row
         .col-4.col-sm-4.col-lg-4
           .img-thumbnail
-            form.dropzone action="/specimen/#{spec.nick}/foto"
-              i.foto-placeholder.icon-user.icon-4x
+            form.dropzone action="/#{spec.nick}/foto"
+              i.foto-placeholder.fa.fa-user.icon-4x
           p
             .btn-group
               button.btn.btn-default type="button" Actions »
@@ -13,7 +13,7 @@
                 span.caret
               ul.dropdown-menu role="menu"
                 li
-                  a href="/specimens/#{spec.nick}/edit"
+                  a href="/#{spec.nick}/edit"
                     i.icon-edit-sign.icon-large
                     |  Подправить
                 li
@@ -21,22 +21,28 @@
                     i.icon-envelope.icon-large
                     |  WTF
         .col-8.col-sm-8.col-lg-8
-          h2.media-heading= spec.nick
-          p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+          h2.media-heading
+            = spec.nick
+            br
+            small
+              = "#{spec.firstname} #{spec.lastname}"
+
+          - spec.links.each do |k, link|
+            p
+              a href="//#{link}"
+                i.fa class="fa-#{guess_icon link}"
+                = " #{link}"
+          blockquote = spec.about
           p.gimmicks-list
 
-            form action="/specimen/#{spec.nick}/gimmick" method="post"
-              - spec.gimmicks && spec.gimmicks.keys.each do |g|
+            form action="/#{spec.nick}/gimmick" method="post"
+              - spec.gimmicks && spec.gimmicks.each do |g|
                 span.label.label-info = g
                 | &nbsp;
               a.btn.btn-default.btn-xs href="#" rel="push-gimmick"
-                i.icon-terminal
+                i.fa.fa-terminal
               | &nbsp;
 
 hr
 
 a.btn.btn-default href="/specimens/new" Зарегать особь...
-
-
-
-

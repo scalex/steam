@@ -58,38 +58,35 @@ module Steam
       redirect '/'
     end
 
-    get '/specimens/new' do
+    get '/new' do
       specimen = Specimen.new
       render_form specimen
     end
 
-    post '/specimens' do
+    post '/create' do
       specimen = Specimen.new
       specimen = Specimen::Creator.new(specimen).call params
       render_form specimen
     end
 
-    get '/specimens/:nick/edit' do
+    get '/:nick/edit' do
       specimen = Specimen[params[:nick]]
       render_form specimen
     end
 
-    post '/specimens/:nick' do
+    post '/:nick/update' do
       specimen = Specimen[params[:nick]]
       specimen = Specimen::Updater.new(specimen).call params
-      render_form specimen
+      redirect "/#{params[:nick]}/edit"
     end
 
-    post '/specimen/:nick/gimmick' do
-      if params[:gimmick] && params[:gimmick].length > 0
-        specimen = Specimen[params[:nick]]
-        specimen[:gimmicks] = Hash(specimen[:gimmicks]).merge({ params[:gimmick].intern => 1 })
-        specimen.save
-      end
+    post '/:nick/gimmick' do
+      specimen = Specimen[params[:nick]]
+      specimen = Specimen::Updater.new(specimen).call params
       redirect '/'
     end
 
-    post '/specimen/:nick/foto' do
+    post '/:nick/foto' do
       content_type :json
       File.open("#{params[:file][:filename]}", 'w') do |f|
         f.write params[:file][:tempfile].read
@@ -98,6 +95,22 @@ module Steam
     end
 
     private
+
+    def guess_icon link
+      if link =~ /twitter/
+        'twitter'
+      elsif link =~ /github/
+        'github'
+      elsif link =~ /facebook/
+        'facebook'
+      elsif link =~ /github/
+        'github'
+      elsif link =~ /stack-overflow/
+        'stack-overflow'
+      else
+        'caret-right'
+      end
+    end
 
     def render_form specimen
       slim :form, {}, { specimen: specimen }

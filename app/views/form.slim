@@ -1,8 +1,8 @@
 .row
   - if specimen.nick.nil?
-    - url = "/specimens"
+    - url = "/create"
   - else
-    - url = "/specimens/#{specimen.nick}"
+    - url = "/#{specimen.nick}/update"
   form action="#{url}" method="post"
     .col-9.col-sm-9.col-lg-7
       .row
@@ -11,12 +11,29 @@
             i.foto-placeholder.icon-user.icon-4x
         .col-8.col-sm-8.col-lg-8
           p
-            input.form-control type="text" name="nickname" placeholder="Nick" value="#{specimen.nick}"
+            - if specimen.nick.nil?
+              input.form-control type="text" name="nickname" placeholder="Nick" value="#{specimen.nick}"
+            - else
+              p.form-control-static #{specimen.nick}
           p
             input.form-control type="text" name="firstname" placeholder="First Name" value="#{specimen.firstname}"
           p
             input.form-control type="text" name="lastname" placeholder="Last Name" value="#{specimen.lastname}"
-          p Lorem ipsum...
+          p
+            input.form-control type="text" name="position" placeholder="Job title" value="#{specimen.position}"
+          p
+            input.form-control type="text" name="birthday" placeholder="Birthday" value="#{specimen.birthday}"
+          h4 Links
+          - unless specimen.links.nil?
+            - specimen.links.each_pair do |name, val|
+              p
+                input.form-control.input-sm type="text" name="#{name}" placeholder="Url" value="#{val}"
+          p
+            input.form-control.input-sm type="text" name="link-#{specimen.links ? specimen.links.size : 0}" placeholder="Url"
+
+          h4 About
+          p
+            textarea.form-control name="about" rows="3" #{specimen.about}
 
       .panel.panel-primary
         .panel-body
