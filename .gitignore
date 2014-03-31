@@ -17,5 +17,7 @@ vendor/gems
 .yardoc
 _yardoc
 doc/
-
 .env
+app/public
+steam.sublime-*
+.ruby-*

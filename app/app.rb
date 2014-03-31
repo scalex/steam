@@ -1,5 +1,16 @@
+Bundler.require
+
+require 'sinatra/asset_pipeline'
+
 module Steam
   class App < Sinatra::Base
+    set :assets_precompile, %w(app.js app.css *.svg *.eot *.ttf *.woff)
+    set :assets_prefix, %w(app/assets vendor/assets)
+    set :assets_css_compressor, :sass
+    set :assets_js_compressor, :uglifier
+
+    register Sinatra::AssetPipeline
+
     enable :sessions
 
     class BadSteam < Sinatra::Base

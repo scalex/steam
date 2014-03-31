@@ -1,19 +1,26 @@
 source 'http://rubygems.org'
+source 'https://rails-assets.org'
 
+gem 'rake'
 gem 'rack'
-gem 'thin'
 gem 'sinatra'
+gem 'thin'
 gem 'sinatra_auth_github'
-gem 'sprockets'
 gem 'slim'
-gem 'sass'
-gem 'coffee-script'
 gem 'sequel'
 gem 'pg'
 gem 'dotenv'
 
+gem 'sass'
+gem 'uglifier'
+gem 'coffee-script'
+gem 'sprockets'
+gem 'sinatra-asset-pipeline'
+
 group :development do
-  gem 'shotgun'
-  gem 'byebug'
+  gem 'pry'
   gem 'pry-byebug'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'shotgun'
 end
