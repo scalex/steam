@@ -4,13 +4,12 @@ DB.transaction do
   DB.create_table?(:specimens) do
     String :nick, :size => 255, :primary_key => true
     String :position
+    String :firstname
+    String :lastname
+    String :about
     Date :birthday
-    hstore :gimmicks
+    json :gimmicks
+    json :links
   end
-
-  # DB.alter_table(:specimens) do
-  #   add_column :firstname, String
-  #   add_column :lastname, String
-  # end
 end
 

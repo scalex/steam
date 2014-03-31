@@ -5,6 +5,6 @@ class Specimen::Creator
 
   def call params
     @specimen[:nick] = params[:nickname]
-    Specimen::Updater.new(specimen).call params
+    Specimen::Updater.new(@specimen).call params
   end
 end
