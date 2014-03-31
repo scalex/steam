@@ -18,10 +18,10 @@ fonts.append_path 'vendor/assets/fonts'
 images = Sprockets::Environment.new
 images.append_path 'app/assets/images'
 
-map("/css")      { run stylesheets }
-map("/fonts")    { run fonts }
-map("/font")    { run fonts }
-map("/js")       { run javascripts }
-map("/img")       { run images }
+map('/css')   { run stylesheets }
+map('/fonts') { run fonts }
+map('/font')  { run fonts }
+map('/js')    { run javascripts }
+map('/img')   { run images }
 
 map('/') { run Steam::App }
