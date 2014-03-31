@@ -2,25 +2,23 @@
   - Specimen.all.each do |spec|
     .col-9.col-sm-9.col-lg-6
       .row
-        .col-4.col-sm-4.col-lg-4
-          .img-thumbnail
-            form.dropzone action="/#{spec.nick}/foto"
-              i.foto-placeholder.fa.fa-user.icon-4x
-          p
-            .btn-group
-              button.btn.btn-default type="button" Actions »
-              button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-                span.caret
-              ul.dropdown-menu role="menu"
-                li
-                  a href="/#{spec.nick}/edit"
-                    i.icon-edit-sign.icon-large
-                    |  Подправить
-                li
-                  a href="mailto:"
-                    i.icon-envelope.icon-large
-                    |  WTF
-        .col-8.col-sm-8.col-lg-8
+        .col-5.col-sm-5.col-lg-5
+          - if spec.foto
+            .img-thumbnail: img.foto src="/#{spec.foto}"
+          - else
+            .img-thumbnail class="#{github_user ? 'dropzone' : nil}" action="/#{spec.nick}/foto"
+
+          - if github_user
+            p
+              .btn-group
+                a.btn.btn-default href='mailto:' WTF
+                button.btn.btn-default.dropdown-toggle type='button' data-toggle='dropdown'
+                  span.caret
+                  span.sr-only Toggle Dropdown
+                ul.dropdown-menu role='menu'
+                  li: a href="/#{spec.nick}/edit" Подправить...
+
+        .col-7.col-sm-7.col-lg-7
           h2.media-heading
             = spec.nick
             br
@@ -29,20 +27,16 @@
 
           - spec.links.each do |k, link|
             p
-              a href="//#{link}"
+              a href="#{link}"
                 i.fa class="fa-#{guess_icon link}"
                 = " #{link}"
           blockquote = spec.about
           p.gimmicks-list
-
-            form action="/#{spec.nick}/gimmick" method="post"
-              - spec.gimmicks && spec.gimmicks.each do |g|
-                span.label.label-info = g
-                | &nbsp;
-              a.btn.btn-default.btn-xs href="#" rel="push-gimmick"
-                i.fa.fa-terminal
+            - spec.gimmicks && spec.gimmicks.each do |g|
+              span.label.label-info = g
               | &nbsp;
-
-hr
-
-a.btn.btn-default href="/specimens/new" Зарегать особь...
+            - if github_user
+              form action="/#{spec.nick}/gimmick" method="post"
+                a.btn.btn-default.btn-xs href="#" rel="push-gimmick"
+                  i.fa.fa-plus
+                | &nbsp;

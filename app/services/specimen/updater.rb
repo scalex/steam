@@ -8,6 +8,7 @@ class Specimen::Updater
     @specimen[:firstname] = params[:firstname] if params[:firstname]
     @specimen[:position] = params[:position] if params[:position]
     @specimen[:about] = params[:about] if params[:about]
+    @specimen[:foto] = params[:foto] if params[:foto]
 
     update_links params
     add_gimmick params

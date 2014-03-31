@@ -42,6 +42,8 @@ module Steam
       failure_app: BadSteam,
     }
 
+    set :public_folder, Proc.new { File.join(root, 'public') }
+
     register Sinatra::Auth::Github
 
     get '/' do
@@ -49,7 +51,7 @@ module Steam
     end
 
     get '/login' do
-      github_organization_authenticate!(settings.github_options[:organization])
+      github_auth!
       redirect '/'
     end
 
@@ -59,39 +61,48 @@ module Steam
     end
 
     get '/new' do
+      github_auth!
       specimen = Specimen.new
       render_form specimen
     end
 
     post '/create' do
+      github_auth!
       specimen = Specimen.new
       specimen = Specimen::Creator.new(specimen).call params
       render_form specimen
     end
 
     get '/:nick/edit' do
+      github_auth!
       specimen = Specimen[params[:nick]]
       render_form specimen
     end
 
     post '/:nick/update' do
+      github_auth!
       specimen = Specimen[params[:nick]]
       specimen = Specimen::Updater.new(specimen).call params
       redirect "/#{params[:nick]}/edit"
     end
 
     post '/:nick/gimmick' do
+      github_auth!
       specimen = Specimen[params[:nick]]
       specimen = Specimen::Updater.new(specimen).call params
       redirect '/'
     end
 
     post '/:nick/foto' do
+      github_auth!
       content_type :json
-      File.open("#{params[:file][:filename]}", 'w') do |f|
-        f.write params[:file][:tempfile].read
+      file_name = params[:file][:filename]
+      File.open("#{public_folder}/#{file_name}", 'w') do |file|
+        file.write params[:file][:tempfile].read
+        specimen = Specimen[params[:nick]]
+        specimen = Specimen::Updater.new(specimen).call foto: file_name
       end
-      { foo: 'bar' }.to_json
+      { url: file_name }.to_json
     end
 
     private
@@ -118,6 +129,14 @@ module Steam
 
     def render_index
       slim :index
+    end
+
+    def github_auth!
+      github_organization_authenticate!(settings.github_options[:organization])
+    end
+
+    def public_folder
+      settings.public_folder
     end
   end
 end

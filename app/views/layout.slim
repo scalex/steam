@@ -22,10 +22,12 @@ html
           .collapse.navbar-collapse
             ul.nav.navbar-nav
               li.active
-                a href='/' Home
+                a href='/' Главная
+              - if github_user
+                li
+                  a href='/new' Добавить друга
+
             ul.nav.navbar-nav.navbar-right
-
-
               - if github_user
                 li.dropdown
                   a.dropdown-toggle href='#' data-toggle='dropdown'
@@ -36,7 +38,7 @@ html
                     li: a href='/logout' Logout
               - else
                 li: a href='/login'
-                  i.icon-github
+                  i.fa.fa-github.fa-lg
                   '  Login using GitHub
 
 
@@ -44,7 +46,7 @@ html
         .row.row-offcanvas.row-offcanvas-right
           .col-xs-12.col-sm-9.col-lg-12
             p.pull-right.visible-xs
-              button.btn.btn-primary.btn-xs type="button" data-toggle="offcanvas" Toggle nav
+              button.btn.btn-primary.btn-xs type='button' data-toggle='offcanvas' Меню
             == yield
 
     footer

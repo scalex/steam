@@ -1,8 +1,7 @@
 DB.transaction do
-  DB.extension :pg_hstore
-
   DB.create_table?(:specimens) do
     String :nick, :size => 255, :primary_key => true
+    String :foto
     String :position
     String :firstname
     String :lastname
@@ -12,4 +11,3 @@ DB.transaction do
     json :links
   end
 end
-
