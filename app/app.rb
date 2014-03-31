@@ -1,5 +1,18 @@
+Bundler.require
+
+require 'sinatra/asset_pipeline'
+require 'services/specimen/updater'
+require 'services/specimen/creator'
+
 module Steam
   class App < Sinatra::Base
+    set :assets_precompile, %w(app.js app.css *.svg *.eot *.ttf *.woff)
+    set :assets_prefix, %w(app/assets vendor/assets)
+    set :assets_css_compressor, :sass
+    set :assets_js_compressor, :uglifier
+
+    register Sinatra::AssetPipeline
+
     enable :sessions
 
     class BadSteam < Sinatra::Base
@@ -32,7 +45,7 @@ module Steam
     register Sinatra::Auth::Github
 
     get '/' do
-      slim :index
+      render_index
     end
 
     get '/login' do
@@ -46,14 +59,25 @@ module Steam
     end
 
     get '/specimens/new' do
-      slim :form
+      specimen = Specimen.new
+      render_form specimen
     end
 
     post '/specimens' do
       specimen = Specimen.new
-      specimen[:nick] = params[:nickname]
-      specimen.save
-      redirect '/'
+      specimen = Specimen::Creator.new(specimen).call params
+      render_form specimen
+    end
+
+    get '/specimens/:nick/edit' do
+      specimen = Specimen[params[:nick]]
+      render_form specimen
+    end
+
+    post '/specimens/:nick' do
+      specimen = Specimen[params[:nick]]
+      specimen = Specimen::Updater.new(specimen).call params
+      render_form specimen
     end
 
     post '/specimen/:nick/gimmick' do
@@ -71,6 +95,16 @@ module Steam
         f.write params[:file][:tempfile].read
       end
       { foo: 'bar' }.to_json
+    end
+
+    private
+
+    def render_form specimen
+      slim :form, {}, { specimen: specimen }
+    end
+
+    def render_index
+      slim :index
     end
   end
 end

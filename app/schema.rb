@@ -7,4 +7,10 @@ DB.transaction do
     Date :birthday
     hstore :gimmicks
   end
+
+  # DB.alter_table(:specimens) do
+  #   add_column :firstname, String
+  #   add_column :lastname, String
+  # end
 end
+

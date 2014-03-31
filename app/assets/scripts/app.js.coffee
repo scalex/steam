@@ -1,3 +1,6 @@
+#= require jquery
+#= require bootstrap
+
 jQuery ($) ->
   # $('#container').on 'click', '[rel=push-gimmick]', (e) ->
   $('[rel=push-gimmick]').on 'click', (e) ->
