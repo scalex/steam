@@ -22,3 +22,8 @@ input[name=gimmick] {
   width: 96px;
   margin-right: 5px;
 }
+
+.nav-user-avatar {
+  width: 36px;
+  height: 36px;
+}
